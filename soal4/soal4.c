@@ -50,12 +50,12 @@ void* unzip2(){
 int main()
 {
 	pthread_create(&(tid[0]),NULL,&mkdir1,NULL);
-	pthread_join(tid[0],NULL);
 	pthread_create(&(tid[1]),NULL,&mkdir2,NULL);
+	pthread_join(tid[0],NULL);
 	pthread_join(tid[1],NULL);
 	pthread_create(&(tid[2]),NULL,&proses1,NULL);
-	pthread_join(tid[2],NULL);
 	pthread_create(&(tid[3]),NULL,&proses2,NULL);
+	pthread_join(tid[2],NULL);
 	pthread_join(tid[3],NULL);
 	pthread_create(&(tid[4]),NULL,&zip1,NULL);
 	pthread_create(&(tid[5]),NULL,&zip2,NULL);

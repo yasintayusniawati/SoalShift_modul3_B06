@@ -12,10 +12,17 @@ int agflag=0;
 int irflag=0;
 //pthread_t tid1, tid2;
 
-void *t_agmal(void *args){
+void *t_agmal(){
     while(1)
     {
-        if(fitur == 2)
+        if(irflag == 3)
+        {
+            printf("\nFitur Agmal Ayo Bangun disabled 10 s\n");
+            sleep(10);
+            irflag = 0;
+	    printf("Fitur Agmal Ayo Bangun enabled\n");
+        }
+	if(fitur == 2)
         {
             wk_stat += 15;
             printf("\nWakeup_status Agmal %d\n", wk_stat);
@@ -29,20 +36,20 @@ void *t_agmal(void *args){
             //	break;
        	    //}
         }
-        if(irflag == 3)
-        {
-            printf("\nFitur Agmal Ayo Bangun disabled 10 s\n");
-            sleep(10);
-            irflag = 0;
-	    printf("Fitur Agmal Ayo Bangun enabled\n");
-        }
     }
 }
 
-void *t_iraj(void *args){
+void *t_iraj(){
     while(1)
     {
-        if(fitur == 3)
+        if(agflag == 3)
+        {
+            printf("\nFitur Iraj Ayo Tidur disabled 10 s\n");
+            sleep(10);
+            agflag = 0;
+            printf("Fitur Iraj Ayo Tidur enabled\n");
+        }
+	if(fitur == 3)
         {
             sp_stat -= 20;
             printf("\nSpirit_status Iraj %d\n", sp_stat);
@@ -55,13 +62,6 @@ void *t_iraj(void *args){
             //	printf("\nIraj ikut tidur, dan bangun kesiangan bersama Agmal\n");
             //	break;
             //}
-        }
-        if(agflag == 3)
-        {
-            printf("\nFitur Iraj Ayo Tidur disabled 10 s\n");
-            sleep(10);
-            agflag = 0;
-            printf("Fitur Iraj Ayo Tidur enabled\n");
         }
     }
 }

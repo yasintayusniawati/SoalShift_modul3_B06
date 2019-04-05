@@ -152,6 +152,102 @@ Client2 dapat menambahkan stok dengan cara connect terlebih dahulu ke server pem
     return 0;
 ```
 
+### Soal 3
+```c
+void *t_agmal(void *args){
+    while(1)
+    {
+        if(irflag == 3)
+        {
+            printf("\nFitur Agmal Ayo Bangun disabled 10 s\n");
+            sleep(10);
+            irflag = 0;
+	    printf("Fitur Agmal Ayo Bangun enabled\n");
+        }
+	if(fitur == 2)
+        {
+            wk_stat += 15;
+            printf("\nWakeup_status Agmal %d\n", wk_stat);
+            agflag += 1;
+            irflag = 0;
+	    fitur = 0;
+
+            //if(wk_stat >= 100)
+            //{
+            //	printf("\nAgmal Terbangun, mereka bangun pagi dan berolahraga\n");
+            //	break;
+       	    //}
+        }
+    }
+}
+```
+isi dari proses thread t_agmal
+
+```c
+
+void *t_iraj(void *args){
+    while(1)
+    {
+        if(fitur == 3)
+        {
+            sp_stat -= 20;
+            printf("\nSpirit_status Iraj %d\n", sp_stat);
+            irflag += 1;
+            agflag = 0;
+	    fitur = 0;
+
+            //if(sp_stat <= 0)
+            //{
+            //	printf("\nIraj ikut tidur, dan bangun kesiangan bersama Agmal\n");
+            //	break;
+            //}
+        }
+        if(agflag == 3)
+        {
+            printf("\nFitur Iraj Ayo Tidur disabled 10 s\n");
+            sleep(10);
+            agflag = 0;
+            printf("Fitur Iraj Ayo Tidur enabled\n");
+        }
+    }
+}
+```
+isi dari proses thread t_iraj
+
+```c
+int main(){
+
+    pthread_create(&(tid1), NULL, &t_agmal, NULL);
+    pthread_create(&(tid2), NULL, &t_iraj, NULL);
+
+    while(1){
+
+        if(wk_stat >= 100)
+        {
+            printf("\nAgmal Terbangun, mereka bangun pagi dan berolahraga\n");
+            return 0;
+        }
+        if(sp_stat <= 0)
+        {
+            printf("\nIraj ikut tidur, dan bangun kesiangan bersama Agmal\n");
+            return 0;
+        }
+
+        printf("\n1. All Status\t 2. Agmal Ayo Bangun\t 3. Iraj Ayo Tidur\n");
+        scanf("%d", &fitur);
+
+        if(fitur == 1)
+        {
+            printf("\nAgmal WakeUp_Status = %d\n", wk_stat);
+            printf("Iraj Spirit_Status = %d\n", sp_stat);
+        }
+    }
+
+    return 0;
+}
+```
+isi dari fungsi utama yang akan menjalankan kedua thread t_agmal dan t_siraj. Disitu juga terdapat menu fitur pilihan untuk menjalankan program
+
 ### Soal 4
 Untuk menjalankan perintah soal no 4 kami menggunakan 8 thread.
 ```c

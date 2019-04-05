@@ -151,3 +151,55 @@ Client2 dapat menambahkan stok dengan cara connect terlebih dahulu ke server pem
     }
     return 0;
 ```
+
+### Soal 4
+Untuk menjalankan perintah soal no 4 kami menggunakan 8 thread.
+```c
+void* mkdir1(){
+	system("mkdir -p /home/bima/Documents/FolderProses1");
+}
+
+void* mkdir2(){
+	system("mkdir -p /home/bima/Documents/FolderProses2");
+}
+```
+thread diatas berfungsi untuk membuat folder FolderProses1 dan FolderProses2
+
+```c
+void* proses1(){
+	system("ps -aux | head -10 > /home/bima/Documents/FolderProses1/SimpanProses1.txt");
+}
+
+void* proses2(){
+	system("ps -aux | head -10 > /home/bima/Documents/FolderProses2/SimpanProses2.txt");
+}
+```
+melakukan perintah ps -aux dibatasi 10 saja dan dimasukkan ke SimpanProses1.txt dan SimpanProses2.txt
+
+```c
+void* zip1(){
+	system("zip -j /home/bima/Documents/FolderProses1/KompresProses1.zip /home/bima/Documents/FolderProses1/SimpanProses1.txt");
+	system("rm /home/bima/Documents/FolderProses1/SimpanProses1.txt");
+	sleep(15);
+	printf("Menunggu 15 detik untuk mengekstrak kembali\n");
+}
+
+void* zip2(){
+	system("zip -j /home/bima/Documents/FolderProses2/KompresProses2.zip /home/bima/Documents/FolderProses2/SimpanProses2.txt");
+	system("rm /home/bima/Documents/FolderProses2/SimpanProses2.txt");
+	sleep(15);
+	printf("Menunggu 15 detik untuk mengekstrak kembali\n");
+}
+```
+proses zip SimpanProses1.txt ke KompresProses1.zip dan SimpanProses2.txt ke KompresProses2.zip 
+
+```c
+void* unzip1(){
+	system("unzip /home/bima/Documents/FolderProses1/KompresProses1.zip -d /home/bima/Documents/FolderProses1/");
+}
+
+void* unzip2(){
+	system("unzip /home/bima/Documents/FolderProses2/KompresProses2.zip -d /home/bima/Documents/FolderProses2/");
+}
+```
+merupakan proses unzip
